@@ -33,11 +33,10 @@ function initTheme() {
   syncMetaThemeColor();
 
   const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-
-  const label = btn.querySelector('.theme-toggle__label');
+  const label = btn?.querySelector('.theme-toggle__label');
 
   function updateThemeButton() {
+    if (!btn) return;
     const goesTo = effectiveTheme() === 'dark' ? 'light' : 'dark';
     if (label) label.textContent = goesTo === 'dark' ? 'Dark' : 'Light';
     btn.setAttribute(
@@ -48,7 +47,7 @@ function initTheme() {
 
   updateThemeButton();
 
-  btn.addEventListener('click', () => {
+  btn?.addEventListener('click', () => {
     const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
     try {
       localStorage.setItem(THEME_KEY, next);

@@ -89,8 +89,8 @@
     --space-contact-pad-top: clamp(1.25rem, 3vw, 1.75rem);
     --space-footer-margin-top: clamp(1.5rem, 4vw, 2.5rem);
     --space-footer-pad-top: clamp(1.75rem, 4vw, 2.25rem);
-    --space-aurora-margin-y-start: clamp(0.75rem, 2.5vw, 2rem);
-    --space-aurora-margin-y-end: clamp(1.75rem, 4vw, 3.5rem);
+    --space-aurora-margin-y-start: clamp(1.25rem, 4vw, 2.75rem);
+    --space-aurora-margin-y-end: clamp(2.25rem, 5vw, 4.25rem);
 
     /* ─── Layout ─── */
     --layout-measure: 42rem;
@@ -279,15 +279,13 @@
     outline-offset: 2px;
   }
 
-  .nav-link:focus-visible,
-  .contact-line:focus-visible,
-  .theme-toggle:focus-visible {
+  .contact-line:focus-visible {
     border-radius: var(--radius-xs);
   }
 }
 
 @layer layout {
-  /* Page shell: three tracks; nav/footer sit in center track */
+  /* Page shell: three tracks; main spans full width; footer in center track */
   .layout-page {
     min-height: 100dvh;
     display: grid;
@@ -298,7 +296,6 @@
     align-content: start;
   }
 
-  .layout-page > .nav,
   .layout-page > .footer {
     grid-column: 2;
   }
@@ -327,7 +324,6 @@
       display: block;
     }
 
-    .layout-page > .nav,
     .layout-page > .footer {
       grid-column: auto;
       max-width: calc(var(--layout-measure) + 2 * var(--space-gutter-x));
@@ -371,92 +367,6 @@
     transform: none;
   }
 
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-5);
-    padding-top: var(--space-gutter-y);
-    padding-bottom: var(--space-gutter-y);
-  }
-
-  .nav__start {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    min-width: 0;
-    flex-wrap: wrap;
-  }
-
-  .nav-mark {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-regular);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-text-primary);
-    transition: color var(--duration-instant) var(--ease-out);
-  }
-
-  .nav-mark:hover {
-    color: var(--color-accent);
-  }
-
-  .theme-toggle {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-light);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-2) var(--space-3);
-    margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-3));
-    border-radius: var(--radius-xs);
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      background var(--duration-slow) var(--ease-out);
-  }
-
-  .theme-toggle:hover {
-    color: var(--color-text-primary);
-    background: color-mix(in oklab, var(--color-accent) 8%, transparent);
-  }
-
-  .theme-toggle:focus-visible {
-    outline-offset: 4px;
-  }
-
-  .nav-link {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-light);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    padding: var(--space-2) 0;
-    margin: calc(-1 * var(--space-2)) 0;
-    border-bottom: 1px solid transparent;
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-slow) var(--ease-out);
-  }
-
-  .nav-link:hover,
-  .nav-link:focus-visible {
-    color: var(--color-text-primary);
-  }
-
-  .nav-link:hover {
-    border-bottom-color: var(--color-border-strong);
-  }
-
-  .nav-link:focus-visible {
-    outline-offset: 4px;
-  }
-
   /*
    * Hero aurora: wash + mesh + grain + SVG schema lines.
    * Parallax (--parallax-*) nudges the schematic layer on pointer move.
@@ -465,7 +375,7 @@
     --parallax-x: 0;
     --parallax-y: 0;
     width: 100%;
-    height: clamp(280px, 44vh, 540px);
+    height: clamp(300px, 46vh, 560px);
     margin: var(--space-aurora-margin-y-start) 0 var(--space-aurora-margin-y-end);
     pointer-events: none;
     position: relative;
@@ -474,20 +384,44 @@
     overflow: hidden;
     opacity: 0;
     animation: hero-motif-in 1.35s var(--ease-default) 0.12s forwards;
+    /* Gradual elliptical fade — no abrupt clip before the bottom */
     mask-image: radial-gradient(
-      ellipse 98% 86% at 50% 40%,
-      #000 46%,
-      transparent 96%
+      ellipse 102% 90% at 50% 38%,
+      #000 0%,
+      #000 38%,
+      rgba(0, 0, 0, 0.45) 64%,
+      rgba(0, 0, 0, 0.12) 82%,
+      transparent 100%
     );
     -webkit-mask-image: radial-gradient(
-      ellipse 98% 86% at 50% 40%,
-      #000 46%,
-      transparent 96%
+      ellipse 102% 90% at 50% 38%,
+      #000 0%,
+      #000 38%,
+      rgba(0, 0, 0, 0.45) 64%,
+      rgba(0, 0, 0, 0.12) 82%,
+      transparent 100%
     );
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
+  }
+
+  /* Blend illustration into page surface — no hard seam below the motif */
+  .hero-aurora::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: min(42%, 220px);
+    z-index: calc(var(--z-grain) + 1);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in oklab, var(--color-surface-base) 12%, transparent) 28%,
+      color-mix(in oklab, var(--color-surface-base) 55%, transparent) 62%,
+      var(--color-surface-base) 100%
+    );
   }
 
   @keyframes hero-motif-in {
@@ -1050,19 +984,22 @@
     border-radius: var(--radius-xs);
   }
 
-  .tl-row::before {
+  .tl-row dt {
+    position: relative;
+  }
+
+  .tl-row dt::before {
     content: '';
     position: absolute;
     left: calc(-1 * var(--space-5));
-    top: 1.2rem;
+    top: 50%;
     width: 7px;
     height: 7px;
-    margin-left: -0.5px;
     border-radius: 50%;
     background: var(--color-surface-base);
     border: 1px solid var(--color-border-strong);
     box-sizing: border-box;
-    transform: translateX(-50%);
+    transform: translate(calc(-50% - 0.5px), -50%);
     z-index: var(--z-raised);
   }
 
