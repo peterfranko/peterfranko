@@ -12,13 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-    }
-  }
-  </script>
 </head>
 <body>
 
@@ -29,7 +22,21 @@
 
   <main>
 
-    <div id="hero-shape" class="hero-shape" aria-hidden="true"></div>
+    <div class="hero-aurora" aria-hidden="true">
+      <div class="hero-aurora__blobs">
+        <span class="hero-aurora__blob hero-aurora__blob--1"></span>
+        <span class="hero-aurora__blob hero-aurora__blob--2"></span>
+        <span class="hero-aurora__blob hero-aurora__blob--3"></span>
+        <span class="hero-aurora__blob hero-aurora__blob--4"></span>
+      </div>
+      <div class="hero-aurora__orbs">
+        <span class="hero-aurora__orb hero-aurora__orb--1"></span>
+        <span class="hero-aurora__orb hero-aurora__orb--2"></span>
+        <span class="hero-aurora__orb hero-aurora__orb--3"></span>
+        <span class="hero-aurora__orb hero-aurora__orb--4"></span>
+        <span class="hero-aurora__orb hero-aurora__orb--5"></span>
+      </div>
+    </div>
 
     <header class="hero">
       <p class="eyebrow reveal" style="--d:0">Product Designer · Brooklyn</p>
@@ -125,6 +132,5 @@
   </footer>
 
   <script src="main.js"></script>
-  <script type="module" src="shape.js"></script>
 </body>
 </html>

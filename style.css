@@ -183,67 +183,277 @@ main,
 .nav-link:focus-visible { outline-offset: 4px; }
 
 /* ─────────────────────────────────────────────
-   HERO SHAPE (3D)
+   HERO AURORA (diffused gradients + glass orbs)
 ──────────────────────────────────────────── */
-.hero-shape {
+.hero-aurora {
   width: 100%;
   height: clamp(260px, 42vh, 520px);
   margin: clamp(0.75rem, 2.5vw, 2rem) 0 clamp(1.75rem, 4vw, 3.5rem);
   pointer-events: none;
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   opacity: 0;
-  animation: shape-in 1.35s var(--ease) 0.12s forwards;
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 52%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 52%, transparent 100%);
+  animation: aurora-in 1.35s var(--ease) 0.12s forwards;
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 55%, transparent 100%);
 }
 
-/* Frosted glass plane behind the 3D wireframe */
-.hero-shape::before {
-  content: '';
+@keyframes aurora-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-aurora__blobs,
+.hero-aurora__orbs {
   position: absolute;
   inset: 0;
+}
+
+.hero-aurora__blobs {
   z-index: 0;
-  pointer-events: none;
+}
+
+.hero-aurora__blob {
+  position: absolute;
   border-radius: 50%;
-  background: color-mix(in oklab, var(--bg-elev) 42%, transparent);
-  border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, #fff 55%, transparent),
-    0 12px 40px color-mix(in oklab, var(--ink) 6%, transparent);
-  backdrop-filter: blur(18px) saturate(1.25);
-  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  will-change: transform;
+  filter: blur(80px);
+  opacity: 0.72;
+}
+
+.hero-aurora__blob--1 {
+  width: min(78vw, 560px);
+  height: min(52vw, 380px);
+  left: -18%;
+  top: 8%;
+  background: radial-gradient(
+    ellipse 70% 65% at 35% 42%,
+    color-mix(in oklab, var(--accent) 70%, #d4a574) 0%,
+    color-mix(in oklab, var(--accent) 25%, var(--bg)) 45%,
+    transparent 72%
+  );
+  animation: aurora-float-1 18s ease-in-out infinite alternate;
+}
+
+.hero-aurora__blob--2 {
+  width: min(70vw, 480px);
+  height: min(48vw, 360px);
+  right: -22%;
+  top: 0%;
+  background: radial-gradient(
+    ellipse 68% 60% at 62% 38%,
+    color-mix(in oklab, #c4b8a8 55%, var(--accent)) 0%,
+    color-mix(in oklab, var(--muted) 40%, var(--bg)) 50%,
+    transparent 70%
+  );
+  animation: aurora-float-2 22s ease-in-out infinite alternate;
+  animation-delay: -4s;
+  opacity: 0.58;
+}
+
+.hero-aurora__blob--3 {
+  width: min(65vw, 440px);
+  height: min(44vw, 300px);
+  left: 12%;
+  bottom: -8%;
+  background: radial-gradient(
+    ellipse 72% 68% at 48% 55%,
+    color-mix(in oklab, #9a9080 50%, var(--accent)) 0%,
+    color-mix(in oklab, var(--bg-elev) 65%, #a8c4c0) 52%,
+    transparent 75%
+  );
+  animation: aurora-float-3 20s ease-in-out infinite alternate;
+  animation-delay: -7s;
+  opacity: 0.5;
+}
+
+.hero-aurora__blob--4 {
+  width: min(55vw, 400px);
+  height: min(38vw, 260px);
+  left: 38%;
+  top: 28%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in oklab, var(--ink-2) 22%, #e8dfd0) 0%,
+    color-mix(in oklab, var(--accent) 35%, transparent) 55%,
+    transparent 68%
+  );
+  animation: aurora-float-4 16s ease-in-out infinite alternate;
+  animation-delay: -2s;
+  opacity: 0.42;
+}
+
+@keyframes aurora-float-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, -4%) scale(1.06); }
+}
+
+@keyframes aurora-float-2 {
+  0%   { transform: translate(0, 0) scale(1.02); }
+  100% { transform: translate(-6%, 5%) scale(1.08); }
+}
+
+@keyframes aurora-float-3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-4%, -5%) scale(1.05); }
+}
+
+@keyframes aurora-float-4 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(3%, 6%) scale(1.12); }
 }
 
 @media (prefers-color-scheme: dark) {
-  .hero-shape::before {
-    background: color-mix(in oklab, var(--bg-elev) 38%, transparent);
-    border-color: color-mix(in oklab, var(--ink) 10%, transparent);
+  .hero-aurora__blob {
+    filter: blur(88px);
+    opacity: 0.85;
+  }
+
+  .hero-aurora__blob--1 {
+    background: radial-gradient(
+      ellipse 70% 65% at 35% 42%,
+      color-mix(in oklab, var(--accent) 75%, #8b7355) 0%,
+      color-mix(in oklab, var(--accent) 30%, var(--bg)) 48%,
+      transparent 72%
+    );
+  }
+
+  .hero-aurora__blob--2 {
+    opacity: 0.68;
+    background: radial-gradient(
+      ellipse 68% 60% at 62% 38%,
+      color-mix(in oklab, var(--ink-2) 45%, var(--accent)) 0%,
+      color-mix(in oklab, var(--muted) 35%, var(--bg)) 52%,
+      transparent 70%
+    );
+  }
+
+  .hero-aurora__blob--3 {
+    opacity: 0.62;
+    background: radial-gradient(
+      ellipse 72% 68% at 48% 55%,
+      color-mix(in oklab, #6e7868 40%, var(--accent)) 0%,
+      color-mix(in oklab, var(--bg-elev) 50%, #5a6864) 52%,
+      transparent 75%
+    );
+  }
+
+  .hero-aurora__blob--4 {
+    opacity: 0.55;
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in oklab, var(--ink) 35%, #4a4540) 0%,
+      color-mix(in oklab, var(--accent) 40%, transparent) 55%,
+      transparent 68%
+    );
+  }
+}
+
+/* Glass orbs — pick up blurred color via backdrop-filter */
+.hero-aurora__orbs {
+  z-index: 1;
+}
+
+.hero-aurora__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklab, #fff 38%, transparent) 0%,
+    color-mix(in oklab, var(--bg) 8%, transparent) 100%
+  );
+  border: 1px solid color-mix(in oklab, #fff 42%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #fff 65%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--ink) 8%, transparent),
+    0 6px 24px color-mix(in oklab, var(--ink) 12%, transparent);
+  backdrop-filter: blur(14px) saturate(1.65) brightness(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.65) brightness(1.05);
+  animation: orb-hover 12s ease-in-out infinite alternate;
+}
+
+.hero-aurora__orb--1 {
+  width: 26px;
+  height: 26px;
+  left: 14%;
+  top: 22%;
+  animation-delay: 0s;
+}
+
+.hero-aurora__orb--2 {
+  width: 18px;
+  height: 18px;
+  left: 52%;
+  top: 18%;
+  animation-delay: -3s;
+}
+
+.hero-aurora__orb--3 {
+  width: 34px;
+  height: 34px;
+  right: 18%;
+  top: 38%;
+  animation-delay: -5s;
+}
+
+.hero-aurora__orb--4 {
+  width: 22px;
+  height: 22px;
+  left: 34%;
+  bottom: 20%;
+  animation-delay: -2s;
+}
+
+.hero-aurora__orb--5 {
+  width: 15px;
+  height: 15px;
+  right: 32%;
+  bottom: 28%;
+  animation-delay: -7s;
+}
+
+@keyframes orb-hover {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(6px, -8px); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-aurora__orb {
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, #fff 14%, transparent) 0%,
+      color-mix(in oklab, var(--ink) 12%, transparent) 100%
+    );
+    border-color: color-mix(in oklab, var(--ink) 18%, transparent);
     box-shadow:
-      inset 0 1px 0 color-mix(in oklab, #fff 12%, transparent),
-      0 12px 48px rgba(0, 0, 0, 0.35);
+      inset 0 1px 0 color-mix(in oklab, #fff 22%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, #000 35%, transparent),
+      0 8px 28px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-aurora__blob,
+  .hero-aurora__orb {
+    animation: none !important;
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .hero-shape::before {
+  .hero-aurora__orb {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: color-mix(in oklab, var(--bg-elev) 72%, transparent);
+    background: color-mix(in oklab, var(--bg-elev) 55%, transparent);
+    border-color: color-mix(in oklab, var(--ink) 12%, transparent);
   }
-}
-
-@keyframes shape-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to   { opacity: 1; transform: none; }
-}
-
-.hero-shape canvas {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 /* ─────────────────────────────────────────────
