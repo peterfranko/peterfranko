@@ -93,6 +93,8 @@
     --space-aurora-margin-y-end: clamp(1.35rem, 3.75vw, 3rem);
     /* Pull prose column (hero + sections) up without shifting the aurora block geometry */
     --space-prose-stack-lift: clamp(1.5rem, 5vw, 3rem);
+    /* Additional lift for hero copy only; does not affect .hero-aurora position or size */
+    --space-hero-text-extra-lift: clamp(2.5rem, 8vw, 6rem);
 
     /* ─── Layout ─── */
     --layout-measure: 42rem;
@@ -354,6 +356,12 @@
     .layout-main > .layout-prose {
       margin-top: calc(-1 * var(--space-prose-stack-lift));
     }
+  }
+
+  .layout-main > .hero.layout-prose {
+    margin-top: calc(
+      -1 * (var(--space-prose-stack-lift) + var(--space-hero-text-extra-lift))
+    );
   }
 }
 
