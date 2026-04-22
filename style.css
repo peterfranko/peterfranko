@@ -82,7 +82,7 @@
     --space-gutter-x: clamp(1.25rem, 5vw, 2.75rem);
     --space-gutter-y: clamp(1.75rem, 4vw, 2.75rem);
     --space-section-lg: clamp(3.75rem, 9vw, 7rem);
-    --space-hero-top: clamp(1.5rem, 5vw, 3.5rem);
+    --space-hero-top: clamp(0.85rem, 3.25vw, 2.25rem);
     --space-hero-after-eyebrow: clamp(1.5rem, 4vw, 2.25rem);
     --space-hero-after-title: clamp(1.75rem, 4vw, 2.5rem);
     --space-contact-gap: clamp(1.15rem, 2.5vw, 1.5rem);
@@ -90,7 +90,7 @@
     --space-footer-margin-top: clamp(1.5rem, 4vw, 2.5rem);
     --space-footer-pad-top: clamp(1.75rem, 4vw, 2.25rem);
     --space-aurora-margin-y-start: 0;
-    --space-aurora-margin-y-end: clamp(2.25rem, 5vw, 4.25rem);
+    --space-aurora-margin-y-end: clamp(1.35rem, 3.75vw, 3rem);
 
     /* ─── Layout ─── */
     --layout-measure: 42rem;
@@ -379,21 +379,22 @@
     overflow: hidden;
     opacity: 0;
     animation: hero-motif-in 1.35s var(--ease-default) 0.12s forwards;
-    /* Gradual elliptical fade — no abrupt clip before the bottom */
-    mask-image: radial-gradient(
-      ellipse 102% 90% at 50% 38%,
+    /* Fade toward the bottom only. A radial mask centered mid-hero made the TOP fade
+       to transparent first, which read as a solid empty band (old nav strip). */
+    mask-image: linear-gradient(
+      to bottom,
       #000 0%,
-      #000 38%,
-      rgba(0, 0, 0, 0.45) 64%,
-      rgba(0, 0, 0, 0.12) 82%,
+      #000 44%,
+      rgba(0, 0, 0, 0.5) 68%,
+      rgba(0, 0, 0, 0.14) 86%,
       transparent 100%
     );
-    -webkit-mask-image: radial-gradient(
-      ellipse 102% 90% at 50% 38%,
+    -webkit-mask-image: linear-gradient(
+      to bottom,
       #000 0%,
-      #000 38%,
-      rgba(0, 0, 0, 0.45) 64%,
-      rgba(0, 0, 0, 0.12) 82%,
+      #000 44%,
+      rgba(0, 0, 0, 0.5) 68%,
+      rgba(0, 0, 0, 0.14) 86%,
       transparent 100%
     );
     mask-repeat: no-repeat;
