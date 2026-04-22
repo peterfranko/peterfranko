@@ -35,9 +35,9 @@
     /* ─── Typography ─── */
     --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
-    --font-weight-light: 300;
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
+    --font-weight-light: 400;
+    --font-weight-regular: 500;
+    --font-weight-medium: 600;
 
     --text-xs: 0.62rem;
     --text-sm: 0.6875rem;
@@ -811,38 +811,6 @@
     padding-bottom: var(--space-section-lg);
   }
 
-  .block-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-5);
-    flex-wrap: wrap;
-    padding-bottom: var(--space-7);
-    border-bottom: 1px solid var(--color-border-strong);
-    margin-bottom: var(--space-1);
-  }
-
-  #background .block-head {
-    border-bottom: none;
-  }
-
-  .block-head__start {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-5);
-    flex-wrap: wrap;
-    min-width: 0;
-  }
-
-  .section-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-regular);
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-text-muted);
-    flex-shrink: 0;
-  }
-
   .label {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
@@ -1070,6 +1038,8 @@
   }
 
   .contact-line {
+    position: relative;
+    display: inline-block;
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: var(--font-weight-light);
@@ -1077,20 +1047,58 @@
     letter-spacing: var(--tracking-lede);
     line-height: var(--leading-tight);
     color: var(--color-text-primary);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.14em;
-    text-decoration-color: color-mix(in oklab, var(--color-text-muted) 55%, transparent);
-    transition:
-      text-decoration-color var(--duration-slow) var(--ease-out),
-      color var(--duration-medium) var(--ease-out);
+    text-decoration: none;
+    /* Resting hairline + hover accent stroke (second layer animates width) */
+    background-image:
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-text-muted) 55%, transparent),
+        color-mix(in oklab, var(--color-text-muted) 55%, transparent)
+      ),
+      linear-gradient(
+        90deg,
+        var(--color-accent),
+        color-mix(in oklab, var(--color-aurora-warm) 70%, var(--color-accent)),
+        var(--color-accent)
+      );
+    background-size:
+      100% 1px,
+      0% 2px;
+    background-position:
+      0 calc(100% - 0.06em),
+      0 calc(100% - 0.06em);
+    background-repeat: no-repeat;
+    padding-bottom: 0.08em;
     width: fit-content;
+  }
+
+  /* Preserve scroll-reveal timing; do not let .contact-line override .reveal transitions */
+  .contact-line.reveal {
+    transition:
+      opacity var(--duration-slower) ease calc(var(--d, 0) * var(--reveal-stagger)),
+      transform var(--duration-reveal) var(--ease-default)
+        calc(var(--d, 0) * var(--reveal-stagger)),
+      background-size var(--duration-slow) var(--ease-default),
+      color var(--duration-medium) var(--ease-out),
+      letter-spacing var(--duration-slow) var(--ease-default);
+  }
+
+  .contact-line:not(.reveal) {
+    transition:
+      background-size var(--duration-slow) var(--ease-default),
+      color var(--duration-medium) var(--ease-out),
+      transform var(--duration-medium) var(--ease-default),
+      letter-spacing var(--duration-slow) var(--ease-default);
   }
 
   .contact-line:hover,
   .contact-line:focus-visible {
-    text-decoration-color: var(--color-accent);
+    background-size:
+      100% 1px,
+      100% 2px;
     color: var(--color-text-primary);
+    letter-spacing: calc(var(--tracking-lede) + 0.018em);
+    transform: translateY(-0.06em);
   }
 
   .footer {
