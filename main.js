@@ -68,24 +68,36 @@ function initTheme() {
   });
 }
 
-function initHeroParallax() {
+function initHeroScrollParallax() {
   const aurora = document.querySelector('.hero-aurora');
   if (!aurora || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  document.addEventListener(
-    'pointermove',
-    (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      aurora.style.setProperty('--parallax-x', x.toFixed(3));
-      aurora.style.setProperty('--parallax-y', y.toFixed(3));
-    },
-    { passive: true },
-  );
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const rect = aurora.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const range = Math.max(vh * 0.65 + rect.height, 1);
+    const t = (vh * 0.45 - rect.top) / range;
+    const y = Math.min(1, Math.max(-1, (t - 0.5) * 2));
+    aurora.style.setProperty('--parallax-y', y.toFixed(4));
+  }
+
+  function onScrollOrResize() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener('scroll', onScrollOrResize, { passive: true });
+  window.addEventListener('resize', onScrollOrResize, { passive: true });
+  update();
 }
 
 initTheme();
-initHeroParallax();
+initHeroScrollParallax();
 
 const els = document.querySelectorAll('.reveal');
 
