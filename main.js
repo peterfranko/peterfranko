@@ -1,71 +1,17 @@
-const THEME_KEY = 'pf-theme';
-
-function getStoredTheme() {
-  try {
-    const v = localStorage.getItem(THEME_KEY);
-    if (v === 'light' || v === 'dark') return v;
-  } catch {
-    /* private mode / blocked storage */
-  }
-  return null;
-}
-
 function getSystemDark() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
-function effectiveTheme() {
-  if (getStoredTheme()) return getStoredTheme();
-  return getSystemDark() ? 'dark' : 'light';
 }
 
 function syncMetaThemeColor() {
   const meta = document.querySelector('meta[name="theme-color"]');
   if (!meta) return;
-  meta.setAttribute('content', effectiveTheme() === 'dark' ? '#141210' : '#f4f0e8');
+  meta.setAttribute('content', getSystemDark() ? '#141210' : '#f4f0e8');
 }
 
 function initTheme() {
-  const stored = getStoredTheme();
-  const root = document.documentElement;
-  if (stored) root.setAttribute('data-theme', stored);
-
   syncMetaThemeColor();
 
-  const btn = document.getElementById('theme-toggle');
-  const label = btn?.querySelector('.theme-toggle__label');
-
-  function updateThemeButton() {
-    if (!btn) return;
-    const goesTo = effectiveTheme() === 'dark' ? 'light' : 'dark';
-    if (label) label.textContent = goesTo === 'dark' ? 'Dark' : 'Light';
-    btn.setAttribute(
-      'aria-label',
-      goesTo === 'dark' ? 'Switch to dark theme' : 'Switch to light theme',
-    );
-  }
-
-  updateThemeButton();
-
-  btn?.addEventListener('click', () => {
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
-    try {
-      localStorage.setItem(THEME_KEY, next);
-    } catch {
-      /* ignore */
-    }
-    root.setAttribute('data-theme', next);
-    syncMetaThemeColor();
-    updateThemeButton();
-  });
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (!getStoredTheme()) {
-      root.removeAttribute('data-theme');
-      syncMetaThemeColor();
-      updateThemeButton();
-    }
-  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncMetaThemeColor);
 }
 
 function initHeroScrollParallax() {

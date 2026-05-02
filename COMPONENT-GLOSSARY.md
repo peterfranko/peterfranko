@@ -77,9 +77,7 @@ Decorative full-width block above the hero copy. **Not** for essential informati
 | Class | Purpose |
 | --- | --- |
 | `.block` | Vertical section spacing. |
-| `.block-head` | Flex row: section title row with bottom border (hidden on `#background`). |
-| `.block-head__start` | Groups index + heading. |
-| `.block-head--contact` | Variant for contact section head. |
+| `.block-head` | Flex row: section title row with bottom border. |
 | `.block--contact` | Contact section: top border, column gap, padding. |
 | `.section-index` | Mono numeric prefix (e.g. `01`, `02`). |
 | `.label` | Mono uppercase section title (`h2` resets). |
@@ -105,6 +103,16 @@ Responsive: timeline columns switch to a narrower grid template below 640px.
 | Class | Purpose |
 | --- | --- |
 | `.contact-line` | Large italic mailto link with underline styling and hover/focus transitions. |
+| `.contact-secondary` | Small mono secondary contact link, currently used for LinkedIn. |
+
+---
+
+## Focus Areas
+
+| Class | Purpose |
+| --- | --- |
+| `.focus-list` | Quiet vertical list of professional focus areas. |
+| `.focus-item` | Single focus area row with restrained section rhythm. |
 
 ---
 
@@ -140,7 +148,7 @@ These classes are fully styled in CSS for a future or alternate **project list**
 
 | Behavior | Description |
 | --- | --- |
-| **Theme** | Reads/writes `localStorage` key `pf-theme`, syncs `html[data-theme]`, updates `meta[name="theme-color"]`, listens for system theme changes when no stored preference. Wires `#theme-toggle` and `.theme-toggle__label` **if** those elements exist in the DOM. |
+| **Theme color** | Syncs `meta[name="theme-color"]` to the current system color scheme. There is no visible theme toggle in the current markup. |
 | **Hero parallax** | Sets `--parallax-y` on `.hero-aurora` from scroll position (skipped when reduced motion is preferred). |
 | **Reveal** | IntersectionObserver adds `.visible` to `.reveal` elements. |
 
