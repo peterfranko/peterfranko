@@ -77,9 +77,7 @@ Decorative full-width block above the hero copy. **Not** for essential informati
 | Class | Purpose |
 | --- | --- |
 | `.block` | Vertical section spacing. |
-| `.block-head` | Flex row: section title row with bottom border. |
 | `.block--contact` | Contact section: top border, column gap, padding. |
-| `.section-index` | Mono numeric prefix (e.g. `01`, `02`). |
 | `.label` | Mono uppercase section title (`h2` resets). |
 | `.label--dim` | Muted label variant (defined for flexibility). |
 
@@ -104,15 +102,6 @@ Responsive: timeline columns switch to a narrower grid template below 640px.
 | --- | --- |
 | `.contact-line` | Large italic mailto link with underline styling and hover/focus transitions. |
 | `.contact-secondary` | Small mono secondary contact link, currently used for LinkedIn. |
-
----
-
-## Focus Areas
-
-| Class | Purpose |
-| --- | --- |
-| `.focus-list` | Quiet vertical list of professional focus areas. |
-| `.focus-item` | Single focus area row with restrained section rhythm. |
 
 ---
 
