@@ -2,7 +2,7 @@
 
 Before working on the `Peter Franko` portfolio site, read Compass:
 
-`/Users/peter/Documents/00-AGENTS-READ-FIRST__COMPASS__CANONICAL-STUDIO-SPREZA-PRODUCT-LANDSCAPE.md`
+`/Users/peter/Documents/Projects/00-AGENTS-READ-FIRST__COMPASS__CANONICAL-STUDIO-SPREZA-PRODUCT-LANDSCAPE.md`
 
 Compass defines how the personal portfolio should relate to Studio Spreza and the apps: the portfolio is a professional identity and contact surface, while Studio Spreza carries product proof.
 
